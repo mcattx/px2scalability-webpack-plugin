@@ -34,7 +34,7 @@ Px2scalabilityWebpackPlugin.prototype.apply = (compiler) => {
                 console.log('====compilation====')
                 console.log(treeify.asTree(compilation.assets[cssAssets]))
                 console.log(compilation.assets[cssAssets]["children"][0])
-                let RawSource = compilation.assets[cssAssets]["children"][0]["RawSource"]["_value"]
+                let RawSource = compilation.assets[cssAssets]["children"][0]["_value"]
                 console.log(RawSource)
                 px2scalability.init(RawSource)
                 console.log(treeify.asTree(compilation))

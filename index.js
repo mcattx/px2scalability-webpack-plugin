@@ -30,7 +30,8 @@ Px2scalabilityWebpackPlugin.prototype.apply = (compiler) => {
         for (let cssAssets in compilation.assets) {
             if (cssAssets.indexOf('.css') > -1) {
                 // cssFileList.push(cssAssets)
-                console.log(compilation.assets[cssAssets].ConcatSource.children[0].RawSource["_value"])
+                console.dir(compilation.assets[cssAssets])
+                // console.log(compilation.assets[cssAssets].ConcatSource.children[0].RawSource["_value"])
             }
         }
         // console.log('====chunks====')

@@ -1,4 +1,5 @@
 const Px2scalability = require('px2scalability')
+const treeify = require('treeify')
 const isDebug = true
 
 const defaultConfig = {
@@ -30,9 +31,9 @@ Px2scalabilityWebpackPlugin.prototype.apply = (compiler) => {
         for (let cssAssets in compilation.assets) {
             if (cssAssets.indexOf('.css') > -1) {
                 // cssFileList.push(cssAssets)
-                console.dir(compilation.assets[cssAssets])
-                console.log(typeof(compilation.assets[cssAssets]))
-                console.log(Object.prototype.toString.call(compilation.assets[cssAssets]))
+                console.log('====compilation====')
+                console.log(treeify.asTree(cssAssets))
+                console.log(treeify.asTree(compilation.assets[cssAssets]))
                 // console.log(compilation.assets[cssAssets]["ConcatSource"])
                 // console.log(compilation.assets[cssAssets]["ConcatSource"]["children"][0])
                 // console.log(compilation.assets[cssAssets]["ConcatSource"]["children"][0]["RawSource"])
@@ -49,7 +50,8 @@ Px2scalabilityWebpackPlugin.prototype.apply = (compiler) => {
     compiler.hooks.done.tap('Px2scalabilityWebpackPlugin', (compilation) => {
         isDebug && console.log('====done====')
         console.log('====assets====')
-        console.log(compilation.assets)
+        console.log(treeify.asTree(compilation))
+        console.log(compilation.hash)
     })
 }
 

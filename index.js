@@ -35,7 +35,7 @@ Px2scalabilityWebpackPlugin.prototype.apply = (compiler) => {
                 console.log(treeify.asTree(cssAssets))
                 console.log(treeify.asTree(compilation.assets[cssAssets]))
                 // console.log(compilation.assets[cssAssets]["ConcatSource"])
-                // console.log(compilation.assets[cssAssets]["ConcatSource"]["children"][0])
+                console.log(compilation.assets[cssAssets]["children"][0])
                 // console.log(compilation.assets[cssAssets]["ConcatSource"]["children"][0]["RawSource"])
                 // console.log(compilation.assets[cssAssets]["ConcatSource"]["children"][0]["RawSource"]["_value"])
             }
@@ -50,7 +50,7 @@ Px2scalabilityWebpackPlugin.prototype.apply = (compiler) => {
     compiler.hooks.done.tap('Px2scalabilityWebpackPlugin', (compilation) => {
         isDebug && console.log('====done====')
         console.log('====assets====')
-        console.log(treeify.asTree(compilation))
+        // console.log(treeify.asTree(compilation))
         console.log(compilation.hash)
     })
 }

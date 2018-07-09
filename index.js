@@ -15,18 +15,27 @@ const caseText = 'body {width: 640px}'
 
 function Px2scalabilityWebpackPlugin (options) {
     this.options = Object.assign({}, defaultConfig, options)
+    // webpack存储变量
+    this.webpackOptions = {};
+    this.status = {}
 }
 
 Px2scalabilityWebpackPlugin.prototype.apply = (compiler) => {
 
-    compiler.hooks.emit.tap('Px2scalabilityWebpackPlugin', compilation => {
-        isDebug && console.log('====make====')
-        px2scalability.init(caseText)
-    })
-
-    compiler.hooks.emit.tapAsync('Px2scalabilityWebpackPlugin', (compilation, callback) => {
+    compiler.hooks.emit.tap('Px2scalabilityWebpackPlugin', (compilation, callback) => {
+        
         isDebug && console.log('====emit====')
+        console.log('====assets====')
+        console.log(compilation.assets)
+        console.log('====chunks====')
+        console.log(compilation.chunks)
+        console.log('====chunkGroups====')
+        console.log(compilation.chunkGroups)
+        console.log('====namedChunkGroups====')
+        console.log(compilation.namedChunkGroups)
+        px2scalability.init(caseText)
 
+        callback()
     })
 
     compiler.hooks.done.tap('Px2scalabilityWebpackPlugin', () => {

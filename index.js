@@ -31,6 +31,10 @@ Px2scalabilityWebpackPlugin.prototype.apply = (compiler) => {
             if (cssAssets.indexOf('.css') > -1) {
                 // cssFileList.push(cssAssets)
                 console.dir(compilation.assets[cssAssets])
+                console.log(compilation.assets[cssAssets]["ConcatSource"])
+                console.log(compilation.assets[cssAssets]["ConcatSource"]["children"][0])
+                console.log(compilation.assets[cssAssets]["ConcatSource"]["children"][0]["RawSource"])
+                console.log(compilation.assets[cssAssets]["ConcatSource"]["children"][0]["RawSource"]["_value"])
                 // console.log(compilation.assets[cssAssets].ConcatSource.children[0].RawSource["_value"])
             }
         }
@@ -41,7 +45,7 @@ Px2scalabilityWebpackPlugin.prototype.apply = (compiler) => {
         // callback()
     })
 
-    compiler.hooks.done.tap('Px2scalabilityWebpackPlugin', () => {
+    compiler.hooks.done.tap('Px2scalabilityWebpackPlugin', (compilation) => {
         isDebug && console.log('====done====')
         console.log('====assets====')
         console.log(compilation.assets)

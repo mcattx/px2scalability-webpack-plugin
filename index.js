@@ -12,7 +12,7 @@ const px2scalability = new Px2scalability({
     'fileName': 'test'
 })
 
-const caseText = 'body {width: 640px}'
+const RawSourcecaseText = 'body {width: 640px}'
 
 function Px2scalabilityWebpackPlugin (options) {
     this.options = Object.assign({}, defaultConfig, options)
@@ -32,17 +32,17 @@ Px2scalabilityWebpackPlugin.prototype.apply = (compiler) => {
             if (cssAssets.indexOf('.css') > -1) {
                 // cssFileList.push(cssAssets)
                 console.log('====compilation====')
-                console.log(treeify.asTree(cssAssets))
                 console.log(treeify.asTree(compilation.assets[cssAssets]))
-                // console.log(compilation.assets[cssAssets]["ConcatSource"])
                 console.log(compilation.assets[cssAssets]["children"][0])
-                // console.log(compilation.assets[cssAssets]["ConcatSource"]["children"][0]["RawSource"])
-                // console.log(compilation.assets[cssAssets]["ConcatSource"]["children"][0]["RawSource"]["_value"])
+                let RawSource = compilation.assets[cssAssets]["children"][0]["RawSource"]["_value"]
+                console.log(RawSource)
+                px2scalability.init(RawSource)
+                console.log(treeify.asTree(compilation))
             }
         }
         // console.log('====chunks====')
         // console.log(compilation.chunks)
-        px2scalability.init(caseText)
+        // px2scalability.init(caseText)
 
         // callback()
     })

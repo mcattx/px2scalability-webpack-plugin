@@ -31,11 +31,12 @@ Px2scalabilityWebpackPlugin.prototype.apply = (compiler) => {
             if (cssAssets.indexOf('.css') > -1) {
                 // cssFileList.push(cssAssets)
                 console.dir(compilation.assets[cssAssets])
-                console.log(compilation.assets[cssAssets]["ConcatSource"])
-                console.log(compilation.assets[cssAssets]["ConcatSource"]["children"][0])
-                console.log(compilation.assets[cssAssets]["ConcatSource"]["children"][0]["RawSource"])
-                console.log(compilation.assets[cssAssets]["ConcatSource"]["children"][0]["RawSource"]["_value"])
-                // console.log(compilation.assets[cssAssets].ConcatSource.children[0].RawSource["_value"])
+                console.log(typeof(compilation.assets[cssAssets]))
+                console.log(Object.prototype.toString.call(compilation.assets[cssAssets]))
+                // console.log(compilation.assets[cssAssets]["ConcatSource"])
+                // console.log(compilation.assets[cssAssets]["ConcatSource"]["children"][0])
+                // console.log(compilation.assets[cssAssets]["ConcatSource"]["children"][0]["RawSource"])
+                // console.log(compilation.assets[cssAssets]["ConcatSource"]["children"][0]["RawSource"]["_value"])
             }
         }
         // console.log('====chunks====')

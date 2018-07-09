@@ -1,25 +1,27 @@
-
-const isDebug = false
+const Px2scalability = require('px2scalability')
+const isDebug = true
 
 const defaultConfig = {
     fileName: 'style'
 }
+
+const px2scalability = new Px2scalability({
+    'env': 'prod',
+    'outputPath': './output',
+    'fileName': 'test'
+})
+
+const caseText = `a{color: red}; div{width: 750px};`
 
 function Px2scalabilityWebpackPlugin (options) {
     this.options = Object.assign({}, defaultConfig, options)
 }
 
 Px2scalabilityWebpackPlugin.prototype.apply = (compiler) => {
-    // 指定一个挂载到 webpack 自身的事件钩子。
-    compiler.plugin('emit', function(compilation, callback) {
-        console.log("This is an example plugin!!!");
-        console.log(compilation)
-        // 功能完成后调用 webpack 提供的回调。
-        callback();
-    });
 
-    compiler.hooks.make.tap('Px2scalabilityWebpackPlugin', compilation => {
+    compiler.hooks.emit.tap('Px2scalabilityWebpackPlugin', compilation => {
         isDebug && console.log('====make====')
+        px2scalability.init(caseText)
     })
 
     compiler.hooks.emit.tapAsync('Px2scalabilityWebpackPlugin', (compilation, callback) => {
@@ -31,7 +33,5 @@ Px2scalabilityWebpackPlugin.prototype.apply = (compiler) => {
         isDebug && console.log('====done====')
     })
 }
-
-Px2scalabilityWebpackPlugin.prototype.printChunkName = 
 
 module.exports = Px2scalabilityWebpackPlugin

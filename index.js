@@ -11,7 +11,7 @@ const px2scalability = new Px2scalability({
     'fileName': 'test'
 })
 
-const caseText = `a{color: red}; div{width: 750px};`
+const caseText = 'body {width: 640px}'
 
 function Px2scalabilityWebpackPlugin (options) {
     this.options = Object.assign({}, defaultConfig, options)

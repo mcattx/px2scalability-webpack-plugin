@@ -22,7 +22,7 @@ Px2scalabilityWebpackPlugin.prototype.apply = (compiler) => {
         isDebug && console.log('====make====')
     })
 
-    compiler.hooks.emit.tapasync('Px2scalabilityWebpackPlugin', (compilation, callback) => {
+    compiler.hooks.emit.tapAsync('Px2scalabilityWebpackPlugin', (compilation, callback) => {
         isDebug && console.log('====emit====')
 
     })

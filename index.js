@@ -23,18 +23,18 @@ function Px2scalabilityWebpackPlugin (options) {
 Px2scalabilityWebpackPlugin.prototype.apply = (compiler) => {
 
     compiler.hooks.emit.tap('Px2scalabilityWebpackPlugin', (compilation, callback) => {
-        let cssFileList = []
+        // let cssFileList = []
         isDebug && console.log('====emit====')
         console.log('====assets====')
         console.log(compilation.assets)
         for (let cssAssets in compilation.assets) {
-            if (cssAssets.indexOf('.css')) {
-                cssFileList.push(cssAssets)
-                console.log(compilation.assets[cssAssets])
+            if (cssAssets.indexOf('.css') > -1) {
+                // cssFileList.push(cssAssets)
+                console.log(compilation.assets[cssAssets].ConcatSource.children[0].RawSource["_value"])
             }
         }
-        console.log('====chunks====')
-        console.log(compilation.chunks)
+        // console.log('====chunks====')
+        // console.log(compilation.chunks)
         px2scalability.init(caseText)
 
         // callback()
@@ -42,6 +42,8 @@ Px2scalabilityWebpackPlugin.prototype.apply = (compiler) => {
 
     compiler.hooks.done.tap('Px2scalabilityWebpackPlugin', () => {
         isDebug && console.log('====done====')
+        console.log('====assets====')
+        console.log(compilation.assets)
     })
 }
 

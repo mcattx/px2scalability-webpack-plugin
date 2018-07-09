@@ -11,7 +11,7 @@ function Px2scalabilityWebpackPlugin (options) {
 
 Px2scalabilityWebpackPlugin.prototype.apply = (compiler) => {
     // 指定一个挂载到 webpack 自身的事件钩子。
-    compiler.plugin('webpacksEventHook', function(compilation, callback) {
+    compiler.plugin('emit', function(compilation, callback) {
         console.log("This is an example plugin!!!");
         console.log(compilation)
         // 功能完成后调用 webpack 提供的回调。

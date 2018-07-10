@@ -38,9 +38,10 @@ function _createFile (cssString, config) {
         }, 
         (err) => {
         if (err) {
+            console.error(err)
             console.error(`px2scalability-webpack-plugin create ${fileName}.${suffix}.css failed.`)
         } else {
-            console.log(`px2scalability-webpack-plugin create ${fileName}.${suffix}.css successfully.`)
+            // console.log(`px2scalability-webpack-plugin create ${fileName}.${suffix}.css successfully.`)
         }
     })
 }
@@ -54,7 +55,6 @@ Px2scalabilityWebpackPlugin.prototype.apply = function (compiler) {
     } 
 
     compiler.hooks.emit.tap('Px2scalabilityWebpackPlugin', (compilation) => {
-        
         for (let cssAssets in compilation.assets) {
             if (cssAssets.indexOf('.css') > -1) {
                 cssFileName = cssAssets
@@ -63,7 +63,6 @@ Px2scalabilityWebpackPlugin.prototype.apply = function (compiler) {
                 for (let i = 0; i < cssSourceList.length; i++) {
                     let source = cssSourceList[i]["_value"]
                     let temp = px2scalability.init(source, 'vw2rem')
-                    console.log(temp)
                     let outputConfig = {
                         'fileName': _getCSSFileName(cssFileName) || defaultConfig.fileName,
                         'outputPath': compilation.outputOptions.path || defaultConfig.outputPath,

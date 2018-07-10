@@ -1,8 +1,9 @@
 const fs = require('fs')
 const Px2scalability = require('px2scalability')
+const px2scalability = new Px2scalability()
 
 let cssFileName = ''
-let cssText = ''
+let cssFileList = []
 
 const defaultConfig = {
     'mode': 'production', // development || production
@@ -29,7 +30,13 @@ function _createFile (cssString, config) {
         fs.mkdirSync(outputPath)
     }
 
-    fs.writeFile(`${outputPath}/${fileName}.${suffix}.css`, cssString, (err) => {
+    fs.writeFile(
+        `${outputPath}/${fileName}.${suffix}.css`, 
+        cssString,
+        {
+           flag: 'a'
+        }, 
+        (err) => {
         if (err) {
             console.error(`px2scalability-webpack-plugin create ${fileName}.${suffix}.css failed.`)
         } else {
@@ -47,18 +54,23 @@ Px2scalabilityWebpackPlugin.prototype.apply = function (compiler) {
     } 
 
     compiler.hooks.emit.tap('Px2scalabilityWebpackPlugin', (compilation) => {
+        
         for (let cssAssets in compilation.assets) {
             if (cssAssets.indexOf('.css') > -1) {
                 cssFileName = cssAssets
-                cssText = compilation.assets[cssAssets]["children"][0]["_value"]
-                const px2scalability = new Px2scalability()
-                let ins = px2scalability.init(cssText, 'vw2rem')
-                let outputConfig = {
-                    'fileName': _getCSSFileName(cssFileName) || defaultConfig.fileName,
-                    'outputPath': compilation.outputOptions.path || defaultConfig.outputPath,
-                    'suffix': 'rem' || defaultConfig.suffix
+                cssFileList.push(cssAssets)
+                let cssSourceList = compilation.assets[cssAssets]["children"]
+                for (let i = 0; i < cssSourceList.length; i++) {
+                    let source = cssSourceList[i]["_value"]
+                    let temp = px2scalability.init(source, 'vw2rem')
+                    console.log(temp)
+                    let outputConfig = {
+                        'fileName': _getCSSFileName(cssFileName) || defaultConfig.fileName,
+                        'outputPath': compilation.outputOptions.path || defaultConfig.outputPath,
+                        'suffix': 'rem' || defaultConfig.suffix
+                    }
+                    _createFile(temp, outputConfig)
                 }
-                _createFile(ins, outputConfig)
             }
         }
     })

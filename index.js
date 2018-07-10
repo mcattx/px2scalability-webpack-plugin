@@ -5,15 +5,14 @@ let cssFileName = ''
 let cssText = ''
 
 const defaultConfig = {
-    'env': 'production', // development || production
-    'fileName': 'style'
+    'mode': 'production', // development || production
+    'fileName': 'style',
+    'outputPath': './output',
+    'suffix': 'rem'
 }
 
 function Px2scalabilityWebpackPlugin (options) {
     this.options = Object.assign({}, defaultConfig, options)
-    // webpack存储变量
-    this.webpackOptions = {};
-    this.status = {}
 }
 
 function _getCSSFileName (name) {
@@ -39,9 +38,15 @@ function _createFile (cssString, config) {
     })
 }
 
-Px2scalabilityWebpackPlugin.prototype.apply = (compiler) => {
+Px2scalabilityWebpackPlugin.prototype.apply = function (compiler) {
 
-    compiler.hooks.emit.tap('Px2scalabilityWebpackPlugin', (compilation, callback) => {
+    const options = this.options
+
+    if (options.mode !== 'production') {
+        return ;
+    } 
+
+    compiler.hooks.emit.tap('Px2scalabilityWebpackPlugin', (compilation) => {
         for (let cssAssets in compilation.assets) {
             if (cssAssets.indexOf('.css') > -1) {
                 cssFileName = cssAssets
@@ -49,9 +54,9 @@ Px2scalabilityWebpackPlugin.prototype.apply = (compiler) => {
                 const px2scalability = new Px2scalability()
                 let ins = px2scalability.init(cssText, 'vw2rem')
                 let outputConfig = {
-                    'fileName': _getCSSFileName(cssFileName),
-                    'outputPath': compilation.outputOptions.path,
-                    'suffix': 'rem'
+                    'fileName': _getCSSFileName(cssFileName) || defaultConfig.fileName,
+                    'outputPath': compilation.outputOptions.path || defaultConfig.outputPath,
+                    'suffix': 'rem' || defaultConfig.suffix
                 }
                 _createFile(ins, outputConfig)
             }

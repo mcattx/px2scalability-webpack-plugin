@@ -1,8 +1,10 @@
 # px2scalability-webpack-plugin
 
+> 中文文档 [传送门](./README-zh.md)
+
 A webpack plugin for [px2scalability](https://github.com/titancat/px2scalability)
 
-**Please use with the [px2scalability-loader](https://github.com/titancat/px2scalability-loader)**
+**Note: Please use with the [px2scalability-loader](https://github.com/titancat/px2scalability-loader)**
 
 ## webpack-config 
 
@@ -68,5 +70,5 @@ new Px2scalabilityWebpackPlugin({
 })
 ```
 
-- mode : The code creates file only in the mode is set production
+- mode : The plugin creates file only in the mode is set production
 - suffix : File suffix

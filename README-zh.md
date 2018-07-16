@@ -2,9 +2,9 @@
 
 > English [doc](./README.md)
 
-一个[px2scalability](https://github.com/titancat/px2scalability)的 webpack 插件
+一个 [px2scalability](https://github.com/titancat/px2scalability) 的 webpack 插件
 
-**注意: 请务必配合 [px2scalability-loader](https://github.com/titancat/px2scalability-loader)一起使用！**
+**注意: 请务必配合 [px2scalability-loader](https://github.com/titancat/px2scalability-loader) 一起使用！**
 
 ## webpack-config 
 
